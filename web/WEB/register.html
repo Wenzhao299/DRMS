@@ -69,10 +69,10 @@
         var uid=document.getElementById("uid").value;
         var pwd = document.getElementById("pwd").value;
         var repwd = document.getElementById("repwd").value;
-        if(uid === "") {
+        if(uid === "" || uid == null) {
             window.alert("用户名不能为空!");
             return false;
-        }else if(pwd === "") {
+        }else if(pwd === "" || pwd == null) {
             window.alert("密码不能为空!");
             return false;
         }else if(!(pwd === repwd)) {

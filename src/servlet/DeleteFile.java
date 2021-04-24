@@ -32,6 +32,8 @@ public class DeleteFile extends HttpServlet {
             List<FileList> filelist = fs.showFile();
             session.setAttribute("filelist", filelist);
             response.sendRedirect("/DRMS/WEB/index.jsp");
+        }else {
+
         }
     }
 
@@ -40,10 +42,7 @@ public class DeleteFile extends HttpServlet {
         try{
             File file = new File(filepath);
             if(file.delete()){
-                System.out.println(file.getName() + " 已被删除！");
                 flag = true;
-            }else{
-                System.out.println("文件删除失败！");
             }
         }catch(Exception e){
             e.printStackTrace();

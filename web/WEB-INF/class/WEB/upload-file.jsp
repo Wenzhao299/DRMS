@@ -13,7 +13,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>DRMS</title>
+    <title>DRMS Upload</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
     <link href="./vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
@@ -148,8 +148,8 @@
                         <div class="card-body">
                             <form action="/DRMS/UploadFile" enctype="multipart/form-data" method="post">
                                 <div align="center">
-                                    <input type="file" name="filename" style="text-align:center">
-                                    <input type="submit" value="提交" class="btn btn-primary btn-rounded" onclick="sub()">
+                                    <input type="file" name="filename" style="text-align:center" id="filename">
+                                    <input type="submit" value="提交" class="btn btn-primary btn-rounded" onclick="return check()">
                                 </div>
                             </form>
                         </div>
@@ -188,6 +188,15 @@
 
 <!-- Form step init -->
 <script src="./js/plugins-init/jquery-steps-init.js"></script>
-
+<script type="text/javascript">
+    function check() {
+        var filename=document.getElementById("filename").value;
+        if(filename === "" || filename == null) {
+            window.alert("请选择文件!");
+            return false;
+        }
+        return true;
+    }
+</script>
 </body>
 </html>
