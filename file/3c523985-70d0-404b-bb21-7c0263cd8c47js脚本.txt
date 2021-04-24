@@ -1,0 +1,27 @@
+document.getElementsByClassName("btn wp100 mt20 pl0 pr0 ")[0].setAttribute('id','1');
+var but = document.getElementById("1");
+setInterval(function(){
+	if(but.disable == false){
+		but.click();
+	}
+},100);
+
+
+document.getElementsByClassName("btn wp100 mt20 pl0 pr0 ")[0].setAttribute('id','1');
+for(i = 0;i<1000;i++){
+	document.getElementById("1").click();
+}
+
+
+
+document.getElementsByClassName("btn wp100 mt20 pl0 pr0 ")[0].setAttribute('id','1');
+var but = document.getElementById("1");
+var set = setInterval(function(){ but.click(); },100);
+
+clearInterval(set);
+
+
+var set= setInterval(function(){
+	document.getElementsByClassName("public_submit")[0].setAttribute('id','submit');
+	document.getElementById("submit").click();
+},3000);
