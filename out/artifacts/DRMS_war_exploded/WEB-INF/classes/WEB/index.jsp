@@ -111,7 +111,7 @@
 
     <!--**********************************
                 Sidebar start
-            ***********************************-->
+    ***********************************-->
     <div class="deznav">
         <div class="deznav-scroll">
             <ul class="metismenu" id="menu">
@@ -121,7 +121,7 @@
                 </a>
                 </li>
                 <li><a class="ai-icon" href="upload-file.jsp" aria-expanded="false">
-                    <i class="flaticon-381-notepad"></i>
+                    <i class="flaticon-381-pencil"></i>
                     <span class="nav-text">文件上传</span>
                 </a>
                 </li>
@@ -138,65 +138,71 @@
     <div class="content-body">
         <!-- row -->
         <div class="container-fluid">
-            <div class="form-head d-flex mb-3 mb-md-4 align-items-start">
-                <div class="mr-auto d-none d-lg-block">
-                    <a href="upload-file.jsp" class="btn btn-primary btn-rounded">Upload</a>
-                </div>
-                <!--<form action="/DRMS/SearchFile" method="post">
-                    <div class="input-group search-area ml-auto d-inline-flex mr-3">
-                        <input type="text" class="form-control" placeholder="Search here" name="search_id">
-                        <div class="input-group-append">
-                            <button type="submit" class="input-group-text"><i class="flaticon-381-search-2"></i></button>
-                        </div>
-                    </div>
-                </form>
-                <a href="javascript:void(0);" class="settings-icon"><i class="flaticon-381-settings-2 mr-0"></i></a>-->
-            </div>
+<%--            <div class="form-head d-flex mb-3 mb-md-4 align-items-start">--%>
+<%--                <div class="mr-auto d-none d-lg-block">--%>
+<%--                    <a href="upload-file.jsp" class="btn btn-primary btn-rounded">Upload</a>--%>
+<%--                </div>--%>
+<%--                <!--<form action="/DRMS/SearchFile" method="post">--%>
+<%--                    <div class="input-group search-area ml-auto d-inline-flex mr-3">--%>
+<%--                        <input type="text" class="form-control" placeholder="Search here" name="search_id">--%>
+<%--                        <div class="input-group-append">--%>
+<%--                            <button type="submit" class="input-group-text"><i class="flaticon-381-search-2"></i></button>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </form>--%>
+<%--                <a href="javascript:void(0);" class="settings-icon"><i class="flaticon-381-settings-2 mr-0"></i></a>-->--%>
+<%--            </div>--%>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="table-responsive">
                         <table id="example5" class="table table-striped patient-list mb-4 dataTablesCard fs-14">
                             <thead>
                             <tr>
-                                <th>
-                                    <div class="checkbox text-right align-self-center">
-                                        <div class="custom-control custom-checkbox ">
-                                            <input type="checkbox" class="custom-control-input" id="checkAll" required="">
-                                            <label class="custom-control-label" for="checkAll"></label>
-                                        </div>
-                                    </div>
-                                </th>
+<%--                                <th>--%>
+<%--                                    <div class="checkbox text-right align-self-center">--%>
+<%--                                        <div class="custom-control custom-checkbox ">--%>
+<%--                                            <input type="checkbox" class="custom-control-input" id="checkAll" required="">--%>
+<%--                                            <label class="custom-control-label" for="checkAll"></label>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
+<%--                                </th>--%>
                                 <th>UUID</th>
                                 <th>文件名</th>
                                 <th>文件大小(KB)</th>
                                 <th>上传者</th>
                                 <th>上传时间</th>
+                                <th>下载</th>
+                                <th>删除</th>
                             </tr>
                             </thead>
                             <tbody>
                             <c:forEach items="${filelist}" var="filelist">
                                 <tr>
-                                    <td>
-                                        <div class="checkbox text-right align-self-center">
-                                            <div class="custom-control custom-checkbox ">
-                                                <input type="checkbox" class="custom-control-input" id="customCheckBox1" required="">
-                                                <label class="custom-control-label" for="customCheckBox1"></label>
-                                            </div>
-                                        </div>
-                                    </td>
+<%--                                    <td>--%>
+<%--                                        <div class="checkbox text-right align-self-center">--%>
+<%--                                            <div class="custom-control custom-checkbox ">--%>
+<%--                                                <input type="checkbox" class="custom-control-input" id="customCheckBox1" required="">--%>
+<%--                                                <label class="custom-control-label" for="customCheckBox1"></label>--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
                                     <td>${filelist.uuid}</td>
                                     <td>${filelist.filename}</td>
                                     <td>${filelist.filesize}</td>
                                     <td>${filelist.uploader}</td>
                                     <td>${filelist.uptime}</td>
                                     <td>
-                                        <a href="/DRMS/DownloadFile?filename=${filelist.uuid}${filelist.filename}">
-                                            <img src="./images/cloud_download.png">
-<%--                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">--%>
-<%--                                                <path d="M17 3C17.2626 2.73735 17.5744 2.52901 17.9176 2.38687C18.2608 2.24473 18.6286 2.17157 19 2.17157C19.3714 2.17157 19.7392 2.24473 20.0824 2.38687C20.4256 2.52901 20.7374 2.73735 21 3C21.2626 3.26264 21.471 3.57444 21.6131 3.9176C21.7553 4.26077 21.8284 4.62856 21.8284 5C21.8284 5.37143 21.7553 5.73923 21.6131 6.08239C21.471 6.42555 21.2626 6.73735 21 7L7.5 20.5L2 22L3.5 16.5L17 3Z" stroke="#3E4954" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>--%>
-<%--                                                <path d="m12.36355,17.18183l3.96371,-3.81818l-7.66364,0l-7.66362,0l0,-2.36363l0,-2.36364l7.57571,0c4.16663,0 7.5757,-0.1198 7.5757,-0.26623c0,-0.14642 -1.65873,-1.8646 -3.68605,-3.81818l-3.68606,-3.55196l3.40705,0l3.40703,0l5.20331,5.00479l5.20331,5.00479l-5.21329,4.99522l-5.21329,4.99522l-3.58679,0l-3.5868,0l3.96372,-3.81818l0,0l0,-0.00001l0,-0.00001z" stroke="#3E4954" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>--%>
-<%--                                            </svg>--%>
-                                        </a>
+<%--                                        <a href="/DRMS/DownloadFile?filename=${filelist.uuid}${filelist.filename}">--%>
+<%--                                            <img src="./images/download.png">--%>
+<%--&lt;%&ndash;                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">&ndash;%&gt;--%>
+<%--&lt;%&ndash;                                                <path d="M17 3C17.2626 2.73735 17.5744 2.52901 17.9176 2.38687C18.2608 2.24473 18.6286 2.17157 19 2.17157C19.3714 2.17157 19.7392 2.24473 20.0824 2.38687C20.4256 2.52901 20.7374 2.73735 21 3C21.2626 3.26264 21.471 3.57444 21.6131 3.9176C21.7553 4.26077 21.8284 4.62856 21.8284 5C21.8284 5.37143 21.7553 5.73923 21.6131 6.08239C21.471 6.42555 21.2626 6.73735 21 7L7.5 20.5L2 22L3.5 16.5L17 3Z" stroke="#3E4954" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                                                <path d="m12.36355,17.18183l3.96371,-3.81818l-7.66364,0l-7.66362,0l0,-2.36363l0,-2.36364l7.57571,0c4.16663,0 7.5757,-0.1198 7.5757,-0.26623c0,-0.14642 -1.65873,-1.8646 -3.68605,-3.81818l-3.68606,-3.55196l3.40705,0l3.40703,0l5.20331,5.00479l5.20331,5.00479l-5.21329,4.99522l-5.21329,4.99522l-3.58679,0l-3.5868,0l3.96372,-3.81818l0,0l0,-0.00001l0,-0.00001z" stroke="#3E4954" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                                            </svg>&ndash;%&gt;--%>
+<%--                                        </a>--%>
+                                        <form action="/DRMS/DownloadFile" method="post">
+                                            <input type="hidden" name="filename" value="${filelist.uuid}${filelist.filename}">
+                                            <input type="image" src="./images/download.png">
+                                        </form>
                                     </td>
 <%--                                    <td>--%>
 <%--                                        <a href="#">--%>
@@ -206,6 +212,13 @@
 <%--                                            </svg>--%>
 <%--                                        </a>--%>
 <%--                                    </td>--%>
+                                    <td>
+                                        <form action="/DRMS/DeleteFile" method="post">
+                                            <input type="hidden" name="uuid" value="${filelist.uuid}">
+                                            <input type="hidden" name="filename" value="${filelist.filename}">
+                                            <input type="image" src="./images/delete.png">
+                                        </form>
+                                    </td>
                                 </tr>
                             </c:forEach>
 

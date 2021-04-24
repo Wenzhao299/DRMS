@@ -1,11 +1,14 @@
 package servlet;
 
+import entity.FileList;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
-import service.FileService;
-import service.impl.FileServiceImpl;
+import service.FileListService;
+import service.impl.FileListServiceImpl;
+import util.FileCryptoUtil;
+import util.GetMacUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -14,9 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +42,7 @@ public class UploadFile extends HttpServlet {
         DiskFileItemFactory factory = new DiskFileItemFactory();
         // 创建一个ServletFileUpload核心对象
         ServletFileUpload sfu = new ServletFileUpload(factory);
-        FileService fs = new FileServiceImpl();
+        FileListService fs = new FileListServiceImpl();
         boolean flag = false;
         String uuid = "";
         String filename = "";
@@ -60,22 +61,28 @@ public class UploadFile extends HttpServlet {
                     String fieldValue = fileitem.getString("utf-8");
                     System.out.println(fieldName + "=====" + fieldValue);
                 } else {
-                    //上传表单项
                     //得到文件输入流
-                    InputStream is = fileitem.getInputStream();
-                    //OutputStream fos = FileCryptoUtil.encryptFile((FileInputStream) is, "key");
-
-                    //创建文件存储目录
-                    String directoryPath = this.getServletContext().getRealPath("WEB-INF/file");
+                    InputStream is_tmp = fileitem.getInputStream();
+                    //创建文件缓存目录
+                    String tmpPath = "E:/DRMS_file/tmp";
                     uuid = String.valueOf(UUID.randomUUID());
                     filename = fileitem.getName();
                     filesize = Integer.toString(Math.toIntExact((fileitem.getSize()/1024))+1);
-                    String filepath = uuid + filename;
-                    //创建文件路径
-                    File storeDirectory = new File(directoryPath + File.separator + filepath);
-                    //使用apache commons-io包，将输入流转成文件
-                    FileUtils.copyInputStreamToFile(is, storeDirectory);
-                    SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+                    String fileName = uuid + filename;
+                    //创建缓存文件路径
+                    File tmpPathName = new File(tmpPath + File.separator + fileName);
+                    //使用apache commons-io包，将输入流转成缓存文件
+                    FileUtils.copyInputStreamToFile(is_tmp, tmpPathName);
+
+                    //文件加密
+                    String directoryPath = this.getServletContext().getRealPath("WEB-INF/file");
+                    String encKey = GetMacUtil.getEncKey(uploader);
+                    try (FileInputStream fis = new FileInputStream(tmpPath + File.separator + fileName);
+                         FileOutputStream fos = new FileOutputStream(directoryPath + File.separator + fileName, true)) {
+                        FileCryptoUtil.encryptFile(fis, fos, encKey);
+                    }
+
+                    SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
                     uptime = ft.format(new Date());
                     flag = true;
                 }
@@ -84,7 +91,7 @@ public class UploadFile extends HttpServlet {
             e.printStackTrace();
         }
         if(flag && fs.uploadFile(uuid, filename, filesize, uploader, uptime)) {
-            List<entity.File> filelist = fs.showFile();
+            List<FileList> filelist = fs.showFile();
             session.setAttribute("filelist", filelist);
             response.sendRedirect("/DRMS/WEB/index.jsp");
         }else {

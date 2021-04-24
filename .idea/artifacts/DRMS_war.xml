@@ -3,7 +3,12 @@
     <output-path>$PROJECT_DIR$/out/artifacts/DRMS</output-path>
     <root id="archive" name="DRMS_war.war">
       <element id="artifact" artifact-name="DRMS:war exploded" />
-      <element id="dir-copy" path="$PROJECT_DIR$/web/WEB-INF/lib" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="module" name="JUnit4" module-name="DRMS" />
+          <element id="library" level="module" name="JUnit5.7.0" module-name="DRMS" />
+        </element>
+      </element>
     </root>
   </artifact>
 </component>

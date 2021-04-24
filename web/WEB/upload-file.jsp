@@ -73,7 +73,7 @@
                 <div class="collapse navbar-collapse justify-content-between">
                     <div class="header-left">
                         <div class="dashboard_bar">
-                            文件列表
+                            文件上传
                         </div>
                     </div>
 
@@ -117,11 +117,11 @@
             <ul class="metismenu" id="menu">
                 <li><a class="ai-icon" href="index.jsp" aria-expanded="false">
                     <i class="flaticon-381-notepad"></i>
-                    <span class="nav-text">文件上传</span>
+                    <span class="nav-text">文件列表</span>
                 </a>
                 </li>
                 <li><a class="ai-icon" href="upload-file.jsp" aria-expanded="false">
-                    <i class="flaticon-381-notepad"></i>
+                    <i class="flaticon-381-pencil"></i>
                     <span class="nav-text">文件上传</span>
                 </a>
                 </li>

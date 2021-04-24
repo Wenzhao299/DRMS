@@ -8,6 +8,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -72,7 +73,7 @@ public class FileCryptoUtil {
      * 文件解密
      *
      * @param fis    加密文件输入流
-     * @param fos    解密文件输出流
+     * @param os    解密文件输出流
      * @param encKey 解密密钥
      * @throws IOException
      * @throws InvalidKeyException
@@ -80,7 +81,7 @@ public class FileCryptoUtil {
      * @throws NoSuchPaddingException
      * @throws InvalidAlgorithmParameterException
      */
-    public static void decryptedFile(FileInputStream fis, FileOutputStream fos, String encKey) throws IOException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException {
+    public static void decryptedFile(FileInputStream fis, OutputStream os, String encKey) throws IOException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException {
         final byte[] encKeyBytes = getEncKeyBytes(encKey);
 
         byte[] encKeySha256 = new byte[KEY_HASH_LENGTH];
@@ -104,7 +105,7 @@ public class FileCryptoUtil {
             byte[] buffer = new byte[1024];
             int n;
             while ((n = cis.read(buffer)) != -1) {
-                fos.write(buffer, 0, n);
+                os.write(buffer, 0, n);
             }
         }
     }

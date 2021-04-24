@@ -1,10 +1,10 @@
 package servlet;
 
-import entity.File;
+import entity.FileList;
 import service.AccountService;
-import service.FileService;
+import service.FileListService;
 import service.impl.AccountServiceImpl;
-import service.impl.FileServiceImpl;
+import service.impl.FileListServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,13 +30,13 @@ public class LoginServlet extends HttpServlet {
         session.setAttribute("uid", uid);
         session.setAttribute("pwd", pwd);
         AccountService as = new AccountServiceImpl();
-        FileService fs = new FileServiceImpl();
+        FileListService fs = new FileListServiceImpl();
         String pwdHash = as.getSHA256(pwd);
         String salt = as.getSalt(uid);
         int counter = as.getCounter(uid);
         //System.out.println("pwdHash:" + pwdHash + "\nsalt:" + salt+ "\ncounter:" + counter);
         if(as.login(uid, pwdHash, salt, counter+1) && as.updateCounter(uid)) {
-            List<File> filelist = fs.showFile();
+            List<FileList> filelist = fs.showFile();
             session.setAttribute("filelist", filelist);
             //request.getRequestDispatcher("/DRMS/WEB/index.jsp").forward(request, response);
             response.sendRedirect("/DRMS/WEB/index.jsp");

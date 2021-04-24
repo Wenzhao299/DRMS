@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class GetMacUtil {
-    /***因为一台机器不一定只有一个网卡呀，所以返回的是数组是很合理的***/
+    //MAC
     public static List<String> getMacList() throws Exception {
         java.util.Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces();
         StringBuilder sb = new StringBuilder();
@@ -25,16 +25,15 @@ public class GetMacUtil {
                 sb.delete( 0, sb.length() );
                 for (int i = 0; i < mac.length; i++) {sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));}
                 tmpMacList.add(sb.toString());
-            }        }
+            }
+        }
         if(tmpMacList.size()<=0){return tmpMacList;}
-        /***去重，别忘了同一个网卡的ipv4,ipv6得到的mac都是一样的，肯定有重复，下面这段代码是。。流式处理***/
+        //去重
         List<String> unique = tmpMacList.stream().distinct().collect(Collectors.toList());
         return unique;
     }
-    public static void main(String[] args) throws Exception {
-        System.out.println("进行 multi net address 测试===》");
-        List<String> macs=getMacList();
-        System.out.println("本机的mac网卡的地址有："+macs);
+    public static String getEncKey(String uid) throws Exception {
+        return uid + getMacList().toString();
     }
 }
 
