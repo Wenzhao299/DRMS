@@ -26,9 +26,13 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uid = request.getParameter("uid");
         String pwd = request.getParameter("pwd");
+        String mac = request.getParameter("mac");
+        System.out.println(mac);
+
         HttpSession session = request.getSession();
         session.setAttribute("uid", uid);
         session.setAttribute("pwd", pwd);
+        session.setAttribute("mac", mac);
         AccountService as = new AccountServiceImpl();
         FileListService fs = new FileListServiceImpl();
         String pwdHash = as.getSHA256(pwd);

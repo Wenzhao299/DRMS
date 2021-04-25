@@ -26,11 +26,9 @@ public class DownloadFile extends HttpServlet {
         String fileName = request.getParameter("filename");
         System.out.println(fileName);
         String path = this.getServletContext().getRealPath("WEB-INF/file");
-        String downloadPath = "E:/DRMS_file";
         HttpSession session = request.getSession();
         String uid = (String) session.getAttribute("uid");
-        //File file = new File(path + File.separator + fileName);
-        //System.out.println(path + fileName);
+        String mac = (String) session.getAttribute("mac");
         try {
             //FileInputStream inputStream = new FileInputStream(file);
             // 设置相关格式
@@ -40,17 +38,9 @@ public class DownloadFile extends HttpServlet {
 
             // 创建输出对象
             OutputStream os = response.getOutputStream();
-            /*// 常规操作
-            byte[] buf = new byte[1024];
-            int len = 0;
-            while((len = inputStream.read(buf)) != -1) {
-                os.write(buf, 0, len);
-            }
-            os.close();
-            inputStream.close();*/
 
             // 文件解密
-            String encKey = GetMacUtil.getEncKey(uid);
+            String encKey = GetMacUtil.getEncKey(uid + mac);
             try (FileInputStream fis = new FileInputStream(path + File.separator + fileName);
                  /*FileOutputStream fos = new FileOutputStream(downloadPath + File.separator + fileName, true)*/) {
                 FileCryptoUtil.decryptedFile(fis, os, encKey);

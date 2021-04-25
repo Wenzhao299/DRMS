@@ -6,12 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>DRMS Home</title>
     <!-- Favicon icon -->
@@ -278,14 +279,12 @@
             select: false,
             //info: false,
             lengthChange:false
-
         });
         $('#example tbody').on('click', 'tr', function () {
             var data = table.row( this ).data();
-
         });
-
     })(jQuery);
+
 </script>
 
 </body>

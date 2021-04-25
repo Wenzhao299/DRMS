@@ -6,12 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>DRMS Upload</title>
     <!-- Favicon icon -->
@@ -21,6 +22,7 @@
     <link href="./vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
     <link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
+
 
 </head>
 <body>
@@ -148,6 +150,7 @@
                         <div class="card-body">
                             <form action="/DRMS/UploadFile" enctype="multipart/form-data" method="post">
                                 <div align="center">
+<%--                                    <input type="hidden" name="mac" id="mac">--%>
                                     <input type="file" name="filename" style="text-align:center" id="filename">
                                     <input type="submit" value="提交" class="btn btn-primary btn-rounded" onclick="return check()">
                                 </div>
@@ -188,15 +191,35 @@
 
 <!-- Form step init -->
 <script src="./js/plugins-init/jquery-steps-init.js"></script>
+
 <script type="text/javascript">
+<%--    <%session.setAttribute("mac",macinfo());%>--%>
+
     function check() {
-        var filename=document.getElementById("filename").value;
         if(filename === "" || filename == null) {
             window.alert("请选择文件!");
             return false;
         }
         return true;
     }
+
+    // // 获取mac信息
+    // var locator = new ActiveXObject ("WbemScripting.SWbemLocator");
+    // var service = locator.ConnectServer(".");
+    // document.getElementById("mac").value = macinfo();
+    // function macinfo(){
+    //     var properties = service.ExecQuery("SELECT * FROM Win32_NetworkAdapterConfiguration Where IPEnabled=TRUE");
+    //     var e = new Enumerator (properties);
+    //     var info = "--";
+    //     var i = 1;
+    //     for (;!e.atEnd();e.moveNext ()){
+    //         var p = e.item ();
+    //         info += p.MACAddress + "--";
+    //         i++;
+    //     }
+    //     return info;
+    // }
+
 </script>
 </body>
 </html>

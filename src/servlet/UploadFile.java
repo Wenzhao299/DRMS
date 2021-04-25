@@ -44,11 +44,28 @@ public class UploadFile extends HttpServlet {
         ServletFileUpload sfu = new ServletFileUpload(factory);
         FileListService fs = new FileListServiceImpl();
         boolean flag = false;
+        //String mac = request.getParameter("mac");
+
+//        com.jspsmart.upload.SmartUpload su = new com.jspsmart.upload.SmartUpload();
+//        su.initialize(this.getServletConfig(), request, response);
+//        su.service(request, response);
+//        su.setTotalMaxFileSize(100000000);
+//        su.setAllowedFilesList("zip,rar");
+//        try {
+//            su.setDeniedFilesList("exe,bat,jsp,htm,html,,");
+//            su.upload();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        String mac = su.getRequest().getParameter("mac");
+//        System.out.println(mac);
+
+        HttpSession session = request.getSession();
         String uuid = "";
         String filename = "";
         String filesize = "";
         String uptime = null;
-        HttpSession session = request.getSession();
+        String mac = (String) session.getAttribute("mac");
         String uploader = (String) session.getAttribute("uid");
         // 解析request对象，并得到一个表单项的集合
         try {
@@ -59,7 +76,7 @@ public class UploadFile extends HttpServlet {
                     //普通表单项
                     String fieldName = fileitem.getFieldName();
                     String fieldValue = fileitem.getString("utf-8");
-                    System.out.println(fieldName + "=====" + fieldValue);
+                    System.out.println(fieldName + ":" + fieldValue);
                 } else {
                     //得到文件输入流
                     InputStream is_tmp = fileitem.getInputStream();
@@ -67,8 +84,12 @@ public class UploadFile extends HttpServlet {
                     String tmpPath = "E:/DRMS_file/tmp";
                     uuid = String.valueOf(UUID.randomUUID());
                     filename = fileitem.getName();
+                    if(filename.contains("\\")) {
+                        filename = filename.substring(filename.lastIndexOf("\\")+1);
+                    }
                     filesize = Integer.toString(Math.toIntExact((fileitem.getSize()/1024))+1);
                     String fileName = uuid + filename;
+                    //System.out.println(mac + ":" + fileName);
                     //创建缓存文件路径
                     File tmpPathName = new File(tmpPath + File.separator + fileName);
                     //使用apache commons-io包，将输入流转成缓存文件
@@ -76,7 +97,7 @@ public class UploadFile extends HttpServlet {
 
                     //文件加密
                     String directoryPath = this.getServletContext().getRealPath("WEB-INF/file");
-                    String encKey = GetMacUtil.getEncKey(uploader);
+                    String encKey = GetMacUtil.getEncKey(uploader + mac);
                     try (FileInputStream fis = new FileInputStream(tmpPath + File.separator + fileName);
                          FileOutputStream fos = new FileOutputStream(directoryPath + File.separator + fileName, true)) {
                         FileCryptoUtil.encryptFile(fis, fos, encKey);
