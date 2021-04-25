@@ -10,7 +10,7 @@ public class ConnUtil {
     static final String DB_USER_URL="jdbc:mysql://101.132.138.214:3306/USER?serverTimezone=GMT&useSSL=false&useUnicode=true&characterEncoding=UTF-8";
     static final String DB_DRMS_URL="jdbc:mysql://101.132.138.214:3306/DRMS?serverTimezone=GMT&useSSL=false&useUnicode=true&characterEncoding=UTF-8";
     //数据库用户名和密码
-    static final String USER = "idrs";
+    static final String USER = "dao";
     static final String PASS = "212194";
     public static Connection getUSERConn() {
         Connection conn = null;

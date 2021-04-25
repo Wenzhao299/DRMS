@@ -27,7 +27,6 @@ public class LoginServlet extends HttpServlet {
         String uid = request.getParameter("uid");
         String pwd = request.getParameter("pwd");
         String mac = request.getParameter("mac");
-        System.out.println(mac);
 
         HttpSession session = request.getSession();
         session.setAttribute("uid", uid);
