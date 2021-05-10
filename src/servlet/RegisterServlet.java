@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Locale;
 
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
@@ -21,11 +22,11 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uid = request.getParameter("uid");
-        String pwd = request.getParameter("pwd");
+        String pwdHash = request.getParameter("pwdHash").toUpperCase(Locale.ROOT);
         request.setAttribute("uid", uid);
-        request.setAttribute("pwd", pwd);
+        //request.setAttribute("pwdHash", pwdHash);
         AccountService as = new AccountServiceImpl();
-        String pwdHash = as.getSHA256(pwd);
+        //String pwdHash = as.getSHA256(pwd);
         String salt = RandomStringUtils.randomAlphanumeric(20);;
         int counter = 0;
         if(as.register(uid, pwdHash, salt, counter)) {

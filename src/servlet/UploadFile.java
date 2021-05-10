@@ -65,8 +65,8 @@ public class UploadFile extends HttpServlet {
         String filename = "";
         String filesize = "";
         String uptime = null;
-        String mac = (String) session.getAttribute("mac");
         String uploader = (String) session.getAttribute("uid");
+        String mac = (String) session.getAttribute("mac");
         // 解析request对象，并得到一个表单项的集合
         try {
             List<FileItem> fileItems = sfu.parseRequest(request);

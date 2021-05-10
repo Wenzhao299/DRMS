@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -25,16 +26,17 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uid = request.getParameter("uid");
-        String pwd = request.getParameter("pwd");
+        String pwdHash = request.getParameter("pwdHash").toUpperCase(Locale.ROOT);
         String mac = request.getParameter("mac");
 
         HttpSession session = request.getSession();
         session.setAttribute("uid", uid);
-        session.setAttribute("pwd", pwd);
+        //session.setAttribute("pwdHash", pwdHash);
         session.setAttribute("mac", mac);
         AccountService as = new AccountServiceImpl();
         FileListService fs = new FileListServiceImpl();
-        String pwdHash = as.getSHA256(pwd);
+        //String pwdHash = as.getSHA256(pwd);
+        //System.out.println(pwdHash);
         String salt = as.getSalt(uid);
         int counter = as.getCounter(uid);
         //System.out.println("pwdHash:" + pwdHash + "\nsalt:" + salt+ "\ncounter:" + counter);

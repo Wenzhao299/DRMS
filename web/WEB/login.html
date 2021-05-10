@@ -28,7 +28,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="mb-1"><strong>密码</strong></label>
-                                        <input type="password" class="form-control" name="pwd">
+                                        <input type="password" class="form-control" id="pwd">
+                                        <input type="hidden" name="pwdHash" id="pwdHash">
                                         <input type="hidden" name="mac" id="mac">
                                     </div>
                                     <div class="form-row d-flex justify-content-between mt-4 mb-2">
@@ -43,7 +44,7 @@
                                         </div> -->
                                     </div>
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-primary btn-block">登录</button>
+                                        <input type="submit" class="btn btn-primary btn-block" value="登录" onclick="sha()"></input>
                                     </div>
                                 </form>
                                 <div class="new-account mt-3">
@@ -58,7 +59,6 @@
     </div>
 </div>
 
-
 <!--**********************************
     Scripts
 ***********************************-->
@@ -67,11 +67,18 @@
 <script src="./vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 <script src="./js/custom.min.js"></script>
 <script src="./js/deznav-init.js"></script>
+<script src="./crypto-js-4.0.0/crypto-js.js"></script>
+</body>
 <script>
     // 获取mac信息
     var locator = new ActiveXObject ("WbemScripting.SWbemLocator");
     var service = locator.ConnectServer(".");
     document.getElementById("mac").value = macinfo();
+
+    // 加密
+    function sha(){
+        document.getElementById("pwdHash").value = CryptoJS.SHA256(document.getElementById("pwd").value);
+    }
 
     function macinfo(){
         var properties = service.ExecQuery("SELECT * FROM Win32_NetworkAdapterConfiguration Where IPEnabled=TRUE");
@@ -86,6 +93,5 @@
         return info;
     }
 </script>
-</body>
 
 </html>
